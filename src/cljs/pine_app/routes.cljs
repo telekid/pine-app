@@ -1,21 +1,19 @@
 (ns pine-app.routes)
 
-(def routes [{:route-id :port
-              :test-path "/port"}
-             {:route-id :portfolioabc
-              :test-path "/portfolioabc"}
+(def routes [{:route-id :home
+              :test-path "/"}
              {:route-id :portfolio
               :test-path "/portfolio"
-              :routes [{:route-id :view
-                        :test-path ["/view-" :id]
-                        :routes [{:route-id :page
-                                  :test-path "/page"}]}
+              :routes [{:route-id :portfolio-entry
+                        :test-path ["/entry-" :id]
+                        :routes [{:route-id :delete-portfolio-entry
+                                  :test-path "/delete"}]}
                        {:route-id :about-portfolio
                         :test-path "/about"}]}
-             {:route-id :home
-              :test-path "/home"}
-             {:route-id :portfolioo
-              :test-path "/portfolioo"}
-             {:route-id :port2
-              :test-path "/port"}])
+             {:route-id :blog
+              :test-path "/blog"
+              :routes [{:route-id :blog-entries
+                        :test-path "/entries"}]}
+             {:route-id :account
+              :test-path "/account"}])
 

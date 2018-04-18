@@ -29,9 +29,14 @@
                              :active-class "active"
                              :params params}
                title]])
-       [[:portfolio "Portfolio" {}]
-        [:view "View" {:view {:id 123}}]
-        [:page "Page" {:view {:id 123}}]
-        [:home "Home" {}]]))
+       [[:home "Home"]
+        [:portfolio "Portfolio"]
+        [:portfolio-entry "Portfolio Entry" {:portfolio-entry {:id 123}}]
+        [:delete-portfolio-entry "Delete Portfolio Entry" {:portfolio-entry {:id 123}}]
+        [:about-portfolio "About Portfolio"]
+        [:blog "Blog"]
+        [:blog-entries "Blog Entries"]
+        [:account "Account"]]))
+
      [:pre (str @location)]]))
 
