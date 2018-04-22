@@ -6,8 +6,7 @@
 
 (defn start []
   (accountant/configure-navigation!
-   {:nav-handler #(dispatch [:navigate (pine/match-route % routes)])
-
+   {:nav-handler #(dispatch [:handle-url-change %])
     :path-exists? #(boolean (pine/match-route % routes))})
   (accountant/dispatch-current!))
 
