@@ -1,7 +1,7 @@
 (defproject pine-app "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.908"]
-                 [reagent "0.7.0"]
+                 [reagent "0.8.0"]
                  [pine "0.1.0-SNAPSHOT"]
                  [venantius/accountant "0.2.4"]
                  [re-frame "0.10.5"]]
