@@ -1,6 +1,7 @@
 (ns pine-app.core
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
+            [pine.re-frame]
             [pine-app.events :as events]
             [pine-app.views :as views]
             [pine-app.config :as config]

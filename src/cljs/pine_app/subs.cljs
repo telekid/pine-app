@@ -6,14 +6,3 @@
  ::name
  (fn [db]
    (:name db)))
-
-(re-frame/reg-sub
- ::location
- (fn [db]
-   (queries/get-location db)))
-
-(re-frame/reg-sub
- ::active-routes
- :<- [::location]
- (fn [location _]
-   (:active location)))

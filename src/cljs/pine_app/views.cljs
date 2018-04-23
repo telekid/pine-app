@@ -1,26 +1,8 @@
 (ns pine-app.views
   (:require [re-frame.core :as re-frame]
-            [pine.core :as pine]
+            [pine.re-frame.components :refer [view active? link]]
             [pine-app.subs :as subs]
-            [pine-app.router :refer [path-for]]))
-
-(declare view)
-
-;; TODO: Move to pine
-(defn active-route
-  [{:keys [route-id active-class params]
-    :as keys
-    :or {params {}}}
-   & children]
-  (let [active-routes (re-frame/subscribe [::subs/active-routes])]
-    [:a (-> keys
-            (dissoc :route-id :active-class :params)
-            (assoc :href (path-for route-id params))
-            ((fn [ks]
-               (if (contains? @active-routes route-id)
-                 (update-in ks [:class-name] #(str % " " active-class))
-                 ks))))
-     children]))
+            [react :as react]))
 
 (defn button [click-handler label]
   [:button {:on-click click-handler} label])
@@ -50,15 +32,12 @@
    [view :about-portfolio [about-portfolio]]])
 
 (defn main-panel []
-  (let [location (re-frame/subscribe [::subs/location])]
+  (let [location (re-frame/subscribe [:pine/location])]
     [:div
      (into [:ul]
       (map
        (fn [[route-id title params]]
-         [:li [active-route {:route-id route-id
-                             :active-class "active"
-                             :params params}
-               title]])
+         [:li [active? "active" [link {:route-id route-id :params params} title]]])
        [[:home "Home"]
         [:portfolio "Portfolio"]
         [:portfolio-entry "Portfolio Entry" {:portfolio-entry {:id 123}}]
@@ -72,11 +51,3 @@
      [view :home [home-page]]
      [view :portfolio [portfolio]]
      [modal [view :delete-portfolio-entry [delete-portfolio-entry]]]]))
-
-;; TODO create apply-component for modals et. al
-;; e.g. (apply-component modal)
-
-;; TODO: Move to pine
-(defn view [route-id & children]
-  (when (contains? @(re-frame/subscribe [::subs/active-routes]) route-id)
-    (into [:div] children)))

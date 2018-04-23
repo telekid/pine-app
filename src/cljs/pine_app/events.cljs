@@ -2,7 +2,7 @@
   (:require [re-frame.core :as re-frame]
             [clojure.data :as data]
             [pine-app.db :as db]
-            [pine.core :as pine]
+            [pine.router :refer [path-for match-route]]
             [accountant.core :as accountant]
             [pine-app.routes :refer [routes]]
             [pine-app.queries :as queries]))
@@ -15,7 +15,7 @@
 (re-frame/reg-event-fx
  :navigate
  (fn [_ [_ route-id params]]
-   {:update-url (pine/path-for route-id params routes)
+   {:update-url (path-for route-id params)
     :dispatch [:handle-navigation]}))
 
 (re-frame/reg-fx
@@ -26,7 +26,7 @@
 (re-frame/reg-event-fx
  :handle-url-change
  (fn [_ [_ url]]
-   {:dispatch [:handle-navigation (pine/match-route url routes)]}))
+   {:dispatch [:handle-navigation (match-route url)]}))
 
 (re-frame/reg-event-fx
  :handle-navigation
